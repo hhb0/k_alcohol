@@ -1,3 +1,5 @@
+pip==23.2
+streamlit
 numpy
 pandas
 tqdm
@@ -6,5 +8,5 @@ pyparsing
 time
 openai
 supabase
-import pickle
-from openai.embeddings_utils
+pickle
+openai.embeddings_utils
