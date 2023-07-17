@@ -1,0 +1,5 @@
+.streamlit/secrets.toml
+.idea
+.idea/
+config/
+.ipynb_checkpoints/
