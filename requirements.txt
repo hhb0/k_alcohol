@@ -1,0 +1,10 @@
+numpy
+pandas
+tqdm
+os
+pyparsing
+time
+openai
+supabase
+import pickle
+from openai.embeddings_utils
