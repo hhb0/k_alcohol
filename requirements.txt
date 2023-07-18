@@ -3,7 +3,6 @@ streamlit
 numpy
 pandas
 tqdm
-os
 pyparsing
 time
 openai
