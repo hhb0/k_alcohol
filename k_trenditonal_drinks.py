@@ -198,34 +198,33 @@ def write_propmt_result(emotion, situation, food, name_id):
         }
     ).execute()
 
+empty3, con2, empty4 = st.columns([0.3, 1.0, 0.3])
+with con2:
+    container = st.empty()
+    form = container.form("my_form", clear_on_submit=True)  # 내부 컨테이너의 폼 생성
+
+    with form:
+        col_s, col_e, col_f = st.columns(3)  # 내부 컨테이너의 컬럼 생성
+
+        with col_s:
+            emotion = st.text_input('감성 (1개)', value="", placeholder="❤️")
+
+        with col_e:
+            situation = st.text_input("상황 (1개)", value="", placeholder="✈️")
+
+        with col_f:
+            food = st.text_input('입맛 (1개)', value="", placeholder="🍇 또는 🍰 등")
+
+        alcohol_min, alcohol_max = st.select_slider(
+            '도수를 선택해주세요',
+            options=[0, 20, 40, 60, 70],
+            value=(0, 70)
+        )
+        submitted = st.form_submit_button("Submit")
+
 with st.container():  # 외부 컨테이너
     empty7, pro, empty9 = st.columns([0.3, 1.0, 0.3])
     empty1, image_c, text_c, empty2 = st.columns([0.3, 0.3, 0.5, 0.3])
-    empty3, con2, empty4 = st.columns([0.3, 1.0, 0.3])
-
-    with con2:
-        container = st.empty()
-        form = container.form("my_form", clear_on_submit=True)  # 내부 컨테이너의 폼 생성
-
-        with form:
-            col_s, col_e, col_f = st.columns(3)  # 내부 컨테이너의 컬럼 생성
-
-            with col_s:
-                emotion = st.text_input('감성 (1개)', value="", placeholder="❤️")
-
-            with col_e:
-                situation = st.text_input("상황 (1개)", value="", placeholder="✈️")
-
-            with col_f:
-                food = st.text_input('입맛 (1개)', value="", placeholder="🍇 또는 🍰 등")
-
-            alcohol_min, alcohol_max = st.select_slider(
-                '도수를 선택해주세요',
-                options=[0, 20, 40, 60, 70],
-                value=(0, 70)
-            )
-            submitted = st.form_submit_button("Submit")
-
     name_id_list = []  # name_id_list 변수를 초기화합니다.
     if submitted:
         if not situation:
@@ -245,7 +244,7 @@ with st.container():  # 외부 컨테이너
                         filtered_main_df.set_index('name_id', inplace=True)
 
                         container.empty()
-                        
+
                         with image_c:
                             name_id = name_id_list[0]
                             if name_id in filtered_main_df.index:
@@ -257,7 +256,7 @@ with st.container():  # 외부 컨테이너
                                     st.image(loaded_image, use_column_width='auto')
                                 else:
                                     st.write("해당하는 이미지가 없습니다.")
-                        
+
                         with text_c:
                             st.subheader(f"{emotion} {situation} {food}")
                             name_id = name_id_list[0]
@@ -275,16 +274,12 @@ with st.container():  # 외부 컨테이너
                                 ingredients = ", ".join(
                                     ingredient_df.loc[ingredient_df['name_id'] == name_id]['ingredients'])
                                 st.write(f"🔸 재료 : {ingredients}")
-
-                                write_propmt_result(emotion, situation, food, name_id)
-                                
                                 if st.button('다시하기'):
                                     st.experimental_rerun()
 
 
                             else:
                                 st.warning(f"전통주 이름: {name_id} 에 해당하는 정보가 없습니다.")
-
 
 
 
