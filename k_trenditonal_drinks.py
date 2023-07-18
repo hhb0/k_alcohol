@@ -19,7 +19,8 @@ from openai.embeddings_utils import (
 import matplotlib.pyplot as plt
 import plotly.express as px
 from scipy import spatial
-from scikit-learn.decomposition import PCA
+from sklearn.decomposition import PCA
+
 
 @st.cache_resource
 def init_connection():
