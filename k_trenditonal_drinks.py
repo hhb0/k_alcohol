@@ -16,6 +16,7 @@ from openai.embeddings_utils import (
     distances_from_embeddings,
     indices_of_nearest_neighbors_from_distances,
 )
+import matplotlib.pyplot as plt
 
 
 @st.cache_resource
