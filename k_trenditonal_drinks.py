@@ -188,6 +188,15 @@ def image_name(name_id):
 
 input_container = None
 
+def write_propmt_result(emotion, situation, food, name_id):
+    supabase_client.table("results").insert(
+        {
+            "emotion": emotion,
+            "situation": situation,
+            "food": food,
+            "name_id": name_id,
+        }
+    ).execute()
 
 with st.container():  # 외부 컨테이너
     empty7, pro, empty9 = st.columns([0.3, 1.0, 0.3])
@@ -237,6 +246,8 @@ with st.container():  # 외부 컨테이너
 
                         container.empty()
 
+                        write_propmt_result(emotion, situation, food, name_id)
+                        
                         with image_c:
                             name_id = name_id_list[0]
                             if name_id in filtered_main_df.index:
