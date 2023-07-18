@@ -257,8 +257,6 @@ with st.container():  # 외부 컨테이너
                                     st.image(loaded_image, use_column_width='auto')
                                 else:
                                     st.write("해당하는 이미지가 없습니다.")
-
-                        write_propmt_result(emotion, situation, food, name_id)
                         
                         with text_c:
                             st.subheader(f"{emotion} {situation} {food}")
@@ -277,6 +275,9 @@ with st.container():  # 외부 컨테이너
                                 ingredients = ", ".join(
                                     ingredient_df.loc[ingredient_df['name_id'] == name_id]['ingredients'])
                                 st.write(f"🔸 재료 : {ingredients}")
+
+                                write_propmt_result(emotion, situation, food, name_id)
+                                
                                 if st.button('다시하기'):
                                     st.experimental_rerun()
 
