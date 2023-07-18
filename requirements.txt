@@ -6,5 +6,4 @@ tqdm
 pyparsing
 openai
 supabase
-pickle
 openai.embeddings_utils
