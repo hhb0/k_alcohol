@@ -41,7 +41,7 @@ with empty1:
     st.empty()
 
 with con1:
-    st.image("./F_image/title_03.png")
+    st.image("./f_image/title_03.png")
 
 with empty2:
     st.empty()
