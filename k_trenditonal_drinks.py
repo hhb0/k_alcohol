@@ -245,8 +245,6 @@ with st.container():  # 외부 컨테이너
                         filtered_main_df.set_index('name_id', inplace=True)
 
                         container.empty()
-
-                        write_propmt_result(emotion, situation, food, name_id)
                         
                         with image_c:
                             name_id = name_id_list[0]
@@ -260,6 +258,8 @@ with st.container():  # 외부 컨테이너
                                 else:
                                     st.write("해당하는 이미지가 없습니다.")
 
+                        write_propmt_result(emotion, situation, food, name_id)
+                        
                         with text_c:
                             st.subheader(f"{emotion} {situation} {food}")
                             name_id = name_id_list[0]
