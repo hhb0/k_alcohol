@@ -34,7 +34,6 @@ EMBEDDING_MODEL = "text-embedding-ada-002"
 
 empty1, con1, empty2 = st.columns([0.3, 1.0, 0.3])
 empty3, con2, empty4 = st.columns([0.3, 1.0, 0.3])
-e_7, image_c, text_c, e_8 = st.columns([0.3, 0.5, 1.0, 0.3])
 
 
 with empty1:
@@ -198,7 +197,7 @@ def write_propmt_result(emotion, situation, food, name_id):
         }
     ).execute()
 
-empty3, con2, empty4 = st.columns([0.3, 1.0, 0.3])
+
 with con2:
     container = st.empty()
     form = container.form("my_form", clear_on_submit=True)  # 내부 컨테이너의 폼 생성
