@@ -230,53 +230,55 @@ with st.container():  # 외부 컨테이너
         elif not emotion:
             st.error("어떤 기분일 때 마시고 싶은지 입력해주세요")
         else:
-            with st.spinner('당신을 위한 전통주를 찾고 있습니다...🔍'):
-                name_id_list, alcohol_limited_list = get_result(situation = situation, emotion = emotion, food = food, alcohol_min = alcohol_min, alcohol_max = alcohol_max)
-                time.sleep(5)
-                if not name_id_list or not alcohol_limited_list:
-                    st.warning("검색 결과가 없습니다.")
-                else:
-                    filtered_main_df = main_df.loc[alcohol_limited_list].copy()
-                    filtered_main_df['name_id'] = filtered_main_df['name_id'].astype(str)
-                    filtered_main_df.set_index('name_id', inplace=True)
-
-                    container.empty()
-
-                    with image_c:
-                        name_id = name_id_list[0]
-                        if name_id in filtered_main_df.index:
-                            input_query = f"{situation} 상황에서 {emotion} 기분으로 {food}와 함께 마시기 좋은 술"
-                            result_query = ''.join([input_query[:-1], "전통주"])
-                            filtered_df = main_df[main_df["name_id"].str.contains(name_id)]
-                            if not filtered_df.empty:
-                                loaded_image = image_name(name_id)
-                                st.image(loaded_image, use_column_width='auto')
+            empty7, pro, empty9 = st.columns([0.3, 1.0, 0.3])
+            with pro:
+                with st.spinner('당신을 위한 전통주를 찾고 있습니다...🔍'):
+                    name_id_list, alcohol_limited_list = get_result(situation = situation, emotion = emotion, food = food, alcohol_min = alcohol_min, alcohol_max = alcohol_max)
+                    time.sleep(5)
+                    if not name_id_list or not alcohol_limited_list:
+                        st.warning("검색 결과가 없습니다.")
+                    else:
+                        filtered_main_df = main_df.loc[alcohol_limited_list].copy()
+                        filtered_main_df['name_id'] = filtered_main_df['name_id'].astype(str)
+                        filtered_main_df.set_index('name_id', inplace=True)
+    
+                        container.empty()
+    
+                        with image_c:
+                            name_id = name_id_list[0]
+                            if name_id in filtered_main_df.index:
+                                input_query = f"{situation} 상황에서 {emotion} 기분으로 {food}와 함께 마시기 좋은 술"
+                                result_query = ''.join([input_query[:-1], "전통주"])
+                                filtered_df = main_df[main_df["name_id"].str.contains(name_id)]
+                                if not filtered_df.empty:
+                                    loaded_image = image_name(name_id)
+                                    st.image(loaded_image, use_column_width='auto')
+                                else:
+                                    st.write("해당하는 이미지가 없습니다.")
+    
+                        with text_c:
+                            st.subheader(f"{emotion} {situation} {food}")
+                            name_id = name_id_list[0]
+                            if name_id in filtered_main_df.index:
+                                input_query = f"{situation} 상황에서 {emotion} 기분으로 {food}와 함께 마시기 좋은 술"
+                                result_query = ''.join([input_query[:-1], "전통주"])
+                                st.write(f"🔸 전통주 이름 : {filtered_main_df.loc[name_id, 'name']}")
+                                st.write(f"🔸 도수 : {filtered_main_df.loc[name_id, 'alcohol']}")
+                                st.write("🔸 특징 :")
+                                features = feature_df.loc[feature_df['name_id'] == name_id]['features'].tolist()
+                                for feature in features:
+                                    st.write(f"{feature}")
+                                with_food = food_df.loc[food_df['name_id'] == name_id]['food'].values[0]
+                                st.write(f"🔸 어울리는 음식 : {with_food}")
+                                ingredients = ", ".join(
+                                    ingredient_df.loc[ingredient_df['name_id'] == name_id]['ingredients'])
+                                st.write(f"🔸 재료 : {ingredients}")
+                                if st.button('다시하기'):
+                                    st.experimental_rerun()
+    
+    
                             else:
-                                st.write("해당하는 이미지가 없습니다.")
-
-                    with text_c:
-                        st.subheader(f"{emotion} {situation} {food}")
-                        name_id = name_id_list[0]
-                        if name_id in filtered_main_df.index:
-                            input_query = f"{situation} 상황에서 {emotion} 기분으로 {food}와 함께 마시기 좋은 술"
-                            result_query = ''.join([input_query[:-1], "전통주"])
-                            st.write(f"🔸 전통주 이름 : {filtered_main_df.loc[name_id, 'name']}")
-                            st.write(f"🔸 도수 : {filtered_main_df.loc[name_id, 'alcohol']}")
-                            st.write("🔸 특징 :")
-                            features = feature_df.loc[feature_df['name_id'] == name_id]['features'].tolist()
-                            for feature in features:
-                                st.write(f"{feature}")
-                            with_food = food_df.loc[food_df['name_id'] == name_id]['food'].values[0]
-                            st.write(f"🔸 어울리는 음식 : {with_food}")
-                            ingredients = ", ".join(
-                                ingredient_df.loc[ingredient_df['name_id'] == name_id]['ingredients'])
-                            st.write(f"🔸 재료 : {ingredients}")
-                            if st.button('다시하기'):
-                                st.experimental_rerun()
-
-
-                        else:
-                            st.warning(f"전통주 이름: {name_id} 에 해당하는 정보가 없습니다.")
+                                st.warning(f"전통주 이름: {name_id} 에 해당하는 정보가 없습니다.")
 
 
 
