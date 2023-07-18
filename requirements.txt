@@ -9,4 +9,4 @@ supabase
 matplotlib
 plotly
 scipy
-sklearn
+scikit-learn
