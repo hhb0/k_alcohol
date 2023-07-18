@@ -17,6 +17,7 @@ from openai.embeddings_utils import (
     indices_of_nearest_neighbors_from_distances,
 )
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 
 @st.cache_resource
